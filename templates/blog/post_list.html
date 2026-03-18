@@ -1,0 +1,100 @@
+{% extends 'base.html' %}
+{% block title %}Blog Posts{% endblock %}
+
+{% block content %}
+
+<!-- Full height after navbar -->
+<div class="min-h-[calc(100vh-80px)] flex flex-col px-6 py-6">
+
+    <!-- Header -->
+    <div class="max-w-7xl w-full mx-auto flex items-center justify-between mb-6">
+        <h1 class="text-3xl font-bold text-slate-900">Blog Posts</h1>
+
+        {% if user.is_superuser %}
+            <a href="{% url 'blog:post_create' %}" 
+               class="bg-indigo-600 text-white px-5 py-2.5 rounded-xl hover:bg-indigo-500 transition shadow-sm">
+               + Create New Post
+            </a>
+        {% else %}
+            <a href="{% url 'login' %}" 
+               class="bg-slate-100 text-slate-700 px-5 py-2.5 rounded-xl hover:bg-slate-200 transition">
+               Login
+            </a>
+        {% endif %}
+    </div>
+
+    <!-- Main Layout -->
+    <div class="max-w-7xl w-full mx-auto grid grid-cols-1 lg:grid-cols-4 gap-8 flex-grow">
+
+        <!-- Blog Posts -->
+        <div class="lg:col-span-3 flex flex-col">
+
+            {% for post in posts %}
+                <article class="bg-white rounded-2xl shadow-sm border border-slate-200 hover:shadow-lg transition overflow-hidden mb-6">
+
+                    {% if post.image %}
+    <img src="{{ post.image.url }}" class="w-full h-56 object-cover">
+{% else %}
+    <img src="https://via.placeholder.com/1200x400?text=No+Image" class="w-full h-56 object-cover">
+{% endif %}
+
+                    <div class="p-6">
+                        <h3 class="text-xl font-semibold text-slate-900">
+                            {{ post.title }}
+                        </h3>
+
+                        <p class="text-sm text-slate-500 mt-1">
+                            {{ post.category.name }} • {{ post.created_at|date:'M j, Y' }}
+                        </p>
+
+                        <p class="mt-3 text-slate-700 leading-relaxed">
+                            {{ post.content|truncatewords:35 }}
+                        </p>
+
+                        <a href="{% url 'blog:post_detail' post.pk %}" 
+                           class="inline-block mt-4 text-indigo-600 font-medium hover:text-indigo-500">
+                           Read More →
+                        </a>
+                    </div>
+                </article>
+
+            {% empty %}
+
+                <!-- PERFECT EMPTY STATE (fills space but not weird center) -->
+                <div class="flex-grow flex items-center justify-center">
+                    <div class="bg-white border border-slate-200 rounded-2xl px-10 py-12 text-center w-full max-w-2xl shadow-sm">
+                        <p class="text-lg font-medium text-slate-600">No posts available</p>
+                        <p class="text-sm text-slate-400 mt-2">
+                            Start by creating your first post 🚀
+                        </p>
+                    </div>
+                </div>
+
+            {% endfor %}
+
+        </div>
+
+        <!-- Sidebar -->
+        <aside class="bg-white rounded-2xl shadow-sm border border-slate-200 p-6 h-fit">
+
+            <h2 class="text-lg font-semibold text-slate-900 mb-4">Categories</h2>
+
+            <ul class="space-y-3 text-slate-700">
+                {% for cat in categories %}
+                    <li>
+                        <a href="#" class="hover:text-indigo-600 font-medium transition">
+                            {{ cat.name }}
+                        </a>
+                    </li>
+                {% empty %}
+                    <li class="text-slate-500">No categories yet.</li>
+                {% endfor %}
+            </ul>
+
+        </aside>
+
+    </div>
+
+</div>
+
+{% endblock %}

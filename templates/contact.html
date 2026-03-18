@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+{% block title %}Contact | Django Practical{% endblock %}
+
+{% block content %}
+
+<div class="max-w-xl mx-auto bg-white p-8 rounded-2xl shadow-md">
+
+    <!-- Heading -->
+    <h2 class="text-2xl font-bold text-slate-900 mb-4">
+        Contact
+    </h2>
+
+    <!-- Intro -->
+    <p class="text-slate-600 leading-relaxed">
+        Hello, my name is <span class="font-semibold text-slate-800">Priyanshu Singh</span>. 
+        I am currently pursuing a Bachelor of Technology (B.Tech) in Information Technology 
+        from <span class="font-medium">Madan Mohan Malaviya University of Technology</span>. 
+        I am in my 2nd year and actively exploring web development and AI-based projects.
+    </p>
+
+    <!-- Contact Info -->
+    <div class="mt-6 space-y-3 text-slate-700">
+
+        <p>
+            📧 Email: 
+            <a href="mailto:04myexperimentswithai@gmail.com"
+               class="text-indigo-600 hover:underline font-medium">
+                04myexperimentswithai@gmail.com
+            </a>
+        </p>
+
+        <p>
+            📱 Phone: 
+            <span class="font-medium">+91 9555669802</span>
+        </p>
+
+    </div>
+
+</div>
+
+{% endblock %}

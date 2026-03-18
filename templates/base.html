@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{% block title %}Django Practical{% endblock %}</title>
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+
+<body class="bg-slate-50 text-slate-900 h-screen overflow-hidden flex flex-col">
+
+<!-- NAVBAR -->
+<nav class="bg-white border-b border-slate-200 shadow-sm">
+    <div class="max-w-6xl mx-auto px-4 flex justify-between items-center h-16">
+
+        <!-- Logo -->
+        <a class="text-xl font-bold text-indigo-600" href="{% url 'myapp:home' %}">
+            DjangoPracticals
+        </a>
+
+        <!-- Links -->
+        <div class="hidden md:flex gap-6 text-sm font-medium">
+            <a class="hover:text-indigo-600" href="{% url 'myapp:home' %}">Home</a>
+            <a class="hover:text-indigo-600" href="{% url 'blog:post_list' %}">Blog</a>
+            <a class="hover:text-indigo-600" href="{% url 'registration:register' %}">Register</a>
+            <a class="hover:text-indigo-600" href="{% url 'myapp:about' %}">About</a>
+            <a class="hover:text-indigo-600" href="{% url 'myapp:contact' %}">Contact</a>
+        </div>
+
+        <!-- Auth -->
+        <div class="relative text-sm">
+            {% if user.is_authenticated %}
+
+                <!-- Avatar Button -->
+                <button id="profileBtn" class="flex flex-col items-center focus:outline-none">
+
+                    <div class="w-9 h-9 rounded-full bg-indigo-600 text-white flex items-center justify-center font-semibold">
+                        {{ user.username|first|upper }}
+                    </div>
+
+                    <span class="text-xs text-slate-600 mt-1">
+                        {{ user.username }}
+                    </span>
+                </button>
+
+                <!-- Dropdown -->
+                <div id="dropdownMenu"
+                     class="hidden absolute right-0 mt-3 w-40 bg-white border border-slate-200 rounded-xl shadow-lg overflow-hidden z-50">
+
+                    <a href="{% url 'myapp:profile' %}"
+                       class="block px-4 py-2 hover:bg-slate-100">
+                        Profile
+                    </a>
+
+                    <a href="{% url 'logout' %}"
+                       class="block px-4 py-2 text-red-500 hover:bg-red-50">
+                        Logout
+                    </a>
+                </div>
+
+            {% else %}
+                <a class="hover:text-indigo-600" href="{% url 'login' %}">Login</a>
+                <a class="bg-indigo-600 text-white px-4 py-1.5 rounded-lg hover:bg-indigo-500"
+                   href="{% url 'signup' %}">
+                    Signup
+                </a>
+            {% endif %}
+        </div>
+
+    </div>
+</nav>
+
+<!-- CONTENT -->
+<main class="flex-1 flex items-center justify-center px-4">
+
+    {% if messages %}
+        <div class="space-y-2 absolute top-20">
+            {% for message in messages %}
+                <div class="px-4 py-2 rounded-lg bg-green-100 text-green-700">
+                    {{ message }}
+                </div>
+            {% endfor %}
+        </div>
+    {% endif %}
+
+    {% block content %}{% endblock %}
+</main>
+
+<!-- FOOTER -->
+<footer class="py-3 text-center text-sm text-slate-500 border-t">
+    &copy; {% now "Y" %} Django Practical Labs
+</footer>
+
+<!-- Dropdown JS -->
+<script>
+    const btn = document.getElementById("profileBtn");
+    const menu = document.getElementById("dropdownMenu");
+
+    if (btn) {
+        btn.addEventListener("click", () => {
+            menu.classList.toggle("hidden");
+        });
+
+        window.addEventListener("click", function(e) {
+            if (!btn.contains(e.target) && !menu.contains(e.target)) {
+                menu.classList.add("hidden");
+            }
+        });
+    }
+</script>
+
+</body>
+</html>

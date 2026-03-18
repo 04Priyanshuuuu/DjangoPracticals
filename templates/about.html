@@ -1,0 +1,60 @@
+{% extends 'base.html' %}
+{% block title %}About | Django Practical{% endblock %}
+
+{% block content %}
+
+<div class="max-w-3xl mx-auto bg-white p-8 rounded-2xl shadow-md">
+
+    <!-- Heading -->
+    <h2 class="text-2xl font-bold text-slate-900 text-center mb-6">
+        Practical Lab Experiments
+    </h2>
+
+    <!-- Intro -->
+    <p class="text-slate-600 mb-6 text-center">
+        This project demonstrates the implementation of various Django concepts through the following experiments.
+    </p>
+
+    <!-- Experiments -->
+    <div class="space-y-5 text-slate-800">
+
+        <div>
+            <span class="font-semibold">Experiment 1:</span>
+            Create a simple Django project with one app and URL mapping.
+        </div>
+
+        <div>
+            <span class="font-semibold">Experiment 2:</span>
+            Design a student performance profile app using models and views.
+        </div>
+
+        <div>
+            <span class="font-semibold">Experiment 3:</span>
+            Customize the Django admin panel to manage model data.
+        </div>
+
+        <div>
+            <span class="font-semibold">Experiment 4:</span>
+            Build a Student Registration Form with model-based validation.
+        </div>
+
+        <div>
+            <span class="font-semibold">Experiment 5:</span>
+            Create a blog application with posts, categories, and comments.
+        </div>
+
+        <div>
+            <span class="font-semibold">Experiment 6:</span>
+            Add user authentication (sign up, login, logout).
+        </div>
+
+        <div>
+            <span class="font-semibold">Experiment 7:</span>
+            Create a Django project with multiple pages (Home, About, Contact) using template inheritance and static files.
+        </div>
+
+    </div>
+
+</div>
+
+{% endblock %}

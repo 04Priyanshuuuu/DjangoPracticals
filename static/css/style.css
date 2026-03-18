@@ -1,0 +1,16 @@
+body {
+    background: #f8f9fa;
+    font-family: Inter, system-ui, -apple-system, sans-serif;
+}
+
+.navbar-brand {
+    font-weight: 700;
+}
+
+.card {
+    border: none;
+}
+
+.footer {
+    margin-top: 4rem;
+}
