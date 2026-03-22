@@ -3,6 +3,8 @@ from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.forms import UserCreationForm
 from .models import Student
+from django.contrib.auth import logout
+
 
 
 def home(request):
@@ -46,3 +48,11 @@ def signup(request):
         form = UserCreationForm()
 
     return render(request, 'auth/signup.html', {'form': form})
+
+
+
+
+def logout_view(request):
+    if request.method == "POST":
+        logout(request)
+        return redirect('login')

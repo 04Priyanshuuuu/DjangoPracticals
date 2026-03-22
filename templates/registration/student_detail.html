@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+{% block title %}Student Detail{% endblock %}
+
+{% block content %}
+
+<div class="min-h-[calc(100vh-80px)] flex items-center justify-center px-6 py-10">
+
+    <div class="max-w-2xl w-full bg-white p-8 rounded-2xl shadow-md border border-slate-200">
+
+        <h2 class="text-2xl font-bold text-slate-900 mb-6">
+            Student Details
+        </h2>
+
+        <div class="space-y-4 text-slate-700">
+
+            <p><b>Name:</b> {{ student.name }}</p>
+            <p><b>Email:</b> {{ student.email }}</p>
+            <p><b>Age:</b> {{ student.age }}</p>
+            <p><b>Course:</b> {{ student.course }}</p>
+            <p><b>Registered At:</b> {{ student.created_at|date:"M d, Y H:i" }}</p>
+
+        </div>
+
+        <!-- Back Button -->
+        <div class="mt-6">
+            <a href="{% url 'registration:register' %}"
+               class="inline-block bg-indigo-600 text-white px-5 py-2 rounded-lg hover:bg-indigo-500 transition">
+                ← Back
+            </a>
+        </div>
+
+    </div>
+
+</div>
+
+{% endblock %}

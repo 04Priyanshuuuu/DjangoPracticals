@@ -3,38 +3,102 @@
 
 {% block content %}
 
-<div class="mx-auto max-w-lg bg-white p-8 rounded-2xl shadow-md">
+<div class="min-h-[calc(100vh-80px)] flex flex-col px-6 py-6">
 
-    <h3 class="text-2xl font-bold text-slate-900 text-center">
-        Student Registration
-    </h3>
+    <!-- Header -->
+    <div class="max-w-7xl w-full mx-auto mb-6">
+        <h1 class="text-3xl font-bold text-slate-900">Student Registration</h1>
+    </div>
 
-    <!-- IMPORTANT enctype -->
-    <form method="post" enctype="multipart/form-data" class="mt-6 space-y-5">
-        {% csrf_token %}
+    <!-- Main Layout -->
+    <div class="max-w-7xl w-full mx-auto grid grid-cols-1 lg:grid-cols-4 gap-8 flex-grow">
 
-        {% for field in form %}
-            <div>
-                <label class="block text-sm font-medium text-slate-700 mb-1">
-                    {{ field.label }}
-                </label>
+        <!-- LEFT: FORM -->
+        <div class="lg:col-span-3">
 
-                {{ field }}
+            <div class="bg-white rounded-2xl shadow-sm border border-slate-200 p-6">
 
-                {% if field.errors %}
-                    <p class="text-sm text-red-500 mt-1">
-                        {{ field.errors|striptags }}
-                    </p>
-                {% endif %}
+                <h3 class="text-xl font-semibold text-slate-900 mb-4">
+                    Register Student
+                </h3>
+
+                <form method="post" class="space-y-4">
+                    {% csrf_token %}
+
+                    {% for field in form %}
+                        <div>
+                            <label class="block text-sm font-medium text-slate-700 mb-1">
+                                {{ field.label }}
+                            </label>
+
+                            {{ field }}
+
+                            {% if field.errors %}
+                                <p class="text-red-500 text-sm mt-1">
+                                    {{ field.errors }}
+                                </p>
+                            {% endif %}
+                        </div>
+                    {% endfor %}
+
+                    <button class="w-full bg-indigo-600 text-white py-2.5 rounded-xl hover:bg-indigo-500 transition">
+                        Register
+                    </button>
+
+                </form>
+
             </div>
-        {% endfor %}
 
-        <button type="submit"
-            class="w-full bg-indigo-600 text-white py-2.5 rounded-lg font-medium hover:bg-indigo-500 transition">
-            Register
-        </button>
+            <!-- STUDENT DETAILS -->
+            {% if selected_student %}
+            <div class="bg-white rounded-2xl shadow-sm border border-slate-200 p-6 mt-6">
 
-    </form>
+                <h3 class="text-lg font-semibold mb-3">Student Details</h3>
+
+                <p><b>Name:</b> {{ selected_student.name }}</p>
+                <p><b>Email:</b> {{ selected_student.email }}</p>
+                <p><b>Age:</b> {{ selected_student.age }}</p>
+                <p><b>Course:</b> {{ selected_student.course }}</p>
+
+            </div>
+            {% endif %}
+
+        </div>
+
+        <!-- RIGHT: STUDENT LIST (SIDEBAR STYLE) -->
+        <aside class="bg-white rounded-2xl shadow-sm border border-slate-200 p-6 h-fit">
+
+            <h2 class="text-lg font-semibold text-slate-900 mb-4">
+                Students
+            </h2>
+
+            <ul class="space-y-3">
+
+                {% for student in students %}
+                    <li>
+                        <a href="{% url 'registration:student_detail' student.id %}"
+                           class="block px-3 py-2 rounded-lg hover:bg-indigo-100 transition
+                           {% if selected_student and selected_student.id == student.id %}
+                               bg-indigo-100 text-indigo-600 font-medium
+                           {% endif %}">
+
+                            {{ student.name }}
+
+                            <p class="text-xs text-gray-500">
+                                {{ student.email }}
+                            </p>
+
+                        </a>
+                    </li>
+                {% empty %}
+                    <p class="text-sm text-gray-500">No students yet</p>
+                {% endfor %}
+
+            </ul>
+
+        </aside>
+
+    </div>
 
 </div>
 

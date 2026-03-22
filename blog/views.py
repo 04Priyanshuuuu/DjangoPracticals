@@ -1,7 +1,7 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib.auth.decorators import login_required
 from django.views.generic import ListView
-from .models import Post
+from .models import Post , Category
 from .forms import CommentForm, PostForm
 from django.contrib.auth.decorators import user_passes_test
 
@@ -16,9 +16,20 @@ class PostListView(ListView):
     context_object_name = 'posts'
     ordering = ['-created_at']
 
+    def get_queryset(self):
+        queryset = super().get_queryset()
+        category_id = self.request.GET.get('category')
+
+        if category_id:
+            queryset = queryset.filter(category_id=category_id)
+
+        return queryset
+
+
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['categories'] = Post.objects.values('category__id', 'category__name').distinct()
+        context['categories'] = Category.objects.all()  
+        context['selected_category'] = self.request.GET.get('category')
         return context
 
 
@@ -29,6 +40,7 @@ def post_detail(request, pk):
     if request.method == 'POST' and form.is_valid():
         comment = form.save(commit=False)
         comment.post = post
+        comment.user = request.user 
         comment.save()
         return redirect('blog:post_detail', pk=post.pk)
 

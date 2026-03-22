@@ -7,11 +7,11 @@ class StudentRegistrationForm(forms.ModelForm):
         model = Student
         fields = ['name', 'email', 'age', 'course']
         widgets = {
-            'name': forms.TextInput(attrs={'class': 'form-control'}),
-            'email': forms.EmailInput(attrs={'class': 'form-control'}),
-            'age': forms.NumberInput(attrs={'class': 'form-control'}),
-            'course': forms.TextInput(attrs={'class': 'form-control'}),
-        }
+    'name': forms.TextInput(attrs={'class': 'w-full border p-2 rounded-lg'}),
+    'email': forms.EmailInput(attrs={'class': 'w-full border p-2 rounded-lg'}),
+    'age': forms.NumberInput(attrs={'class': 'w-full border p-2 rounded-lg'}),
+    'course': forms.TextInput(attrs={'class': 'w-full border p-2 rounded-lg'}),
+}
 
     def clean_age(self):
         age = self.cleaned_data.get('age')
