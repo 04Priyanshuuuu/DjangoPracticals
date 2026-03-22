@@ -2,7 +2,7 @@
 
 A complete Django project demonstrating multiple core concepts through practical lab experiments.
 
-🔗 **Live Demo:** [https://your-render-link.onrender.com](https://djangopracticals.onrender.com/)
+🔗 **Live Demo:** [https://your-render-link.onrender.com](https://djangopracticals.onrender.com/)<br>
 📂 **GitHub Repo:** https://github.com/04Priyanshuuuu/DjangoPracticals
 
 ---
@@ -106,11 +106,11 @@ DjangoPracticals/
 
 ## 🔐 Features
 
-✔ User Authentication (Login/Signup/Logout)
-✔ Blog System (Posts, Categories, Comments)
-✔ Django Admin Customization
-✔ Form Validation
-✔ Static & Media File Handling
+✔ User Authentication (Login/Signup/Logout)<br>
+✔ Blog System (Posts, Categories, Comments))<br>
+✔ Django Admin Customization)<br>
+✔ Form Validation)<br>
+✔ Static & Media File Handling)<br>
 
 ---
 
