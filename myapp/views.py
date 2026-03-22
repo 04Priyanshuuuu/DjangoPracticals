@@ -61,7 +61,10 @@ def logout_view(request):
     
 
 def create_admin(request):
-    if not User.objects.filter(username='admin').exists():
-        User.objects.create_superuser('zero', '04myexperimentswithai@gmail.com', 'zero')
+    username = 'zero'
+
+    if not User.objects.filter(username=username).exists():
+        User.objects.create_superuser(username, '04myexperimentswithai@gmail.com', 'zero')
         return HttpResponse("Superuser created!")
+
     return HttpResponse("Already exists")
