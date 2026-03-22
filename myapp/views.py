@@ -4,6 +4,8 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.forms import UserCreationForm
 from .models import Student
 from django.contrib.auth import logout
+from django.http import HttpResponse
+from django.contrib.auth.models import User
 
 
 
@@ -56,3 +58,10 @@ def logout_view(request):
     if request.method == "POST":
         logout(request)
         return redirect('login')
+    
+
+def create_admin(request):
+    if not User.objects.filter(username='admin').exists():
+        User.objects.create_superuser('zero', '04myexperimentswithai@gmail.com', 'zero')
+        return HttpResponse("Superuser created!")
+    return HttpResponse("Already exists")
