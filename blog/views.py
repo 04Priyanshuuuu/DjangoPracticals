@@ -50,7 +50,7 @@ def post_detail(request, pk):
 @login_required(login_url='login')
 def post_create(request):
     if request.method == 'POST':
-        form = PostForm(request.POST, request.FILES)
+        form = PostForm(request.POST)
         if form.is_valid():
             post = form.save()
             return redirect('blog:post_detail', pk=post.pk)

@@ -9,8 +9,8 @@
     <article class="bg-white rounded-2xl shadow-sm border border-slate-200 overflow-hidden">
 
         <!-- Image -->
-        {% if post.image %}
-            <img src="{{ post.image.url }}" class="w-full max-h-[500px] object-contain bg-black">
+        {% if post.image_url %}
+            <img src="{{ post.image_url }}" class="w-full max-h-[500px] object-contain bg-black">
         {% else %}
             <img src="https://via.placeholder.com/1200x400?text=No+Image" class="w-full h-[400px] object-cover object-center">
         {% endif %}

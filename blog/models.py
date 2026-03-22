@@ -13,7 +13,7 @@ class Post(models.Model):
     content = models.TextField()
     category = models.ForeignKey(Category, on_delete=models.CASCADE, related_name='posts')
     
-    image = models.ImageField(upload_to='post_images/', blank=True, null=True)  # ✅ ADD THIS
+    image_url = models.URLField(blank=True, null=True)
     
     created_at = models.DateTimeField(auto_now_add=True)
 

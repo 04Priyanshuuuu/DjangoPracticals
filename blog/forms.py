@@ -24,7 +24,7 @@ class PostForm(forms.ModelForm):
     )
     class Meta:
         model = Post
-        fields = ['title', 'content', 'category', 'image']
+        fields = ['title', 'content', 'category', 'image_url']
         widgets = {
             'title': forms.TextInput(attrs={
                 'class': 'w-full rounded-lg border border-slate-300 px-3 py-2 text-sm focus:ring-2 focus:ring-indigo-500 focus:outline-none',
@@ -37,7 +37,7 @@ class PostForm(forms.ModelForm):
             'category': forms.Select(attrs={
                 'class': 'w-full rounded-lg border border-slate-300 px-3 py-2 text-sm bg-white focus:ring-2 focus:ring-indigo-500 focus:outline-none'
             }),
-            'image': forms.URLInput(attrs={
+            'image_url': forms.URLInput(attrs={
                 'class': 'w-full rounded-lg border border-slate-300 px-3 py-2 text-sm focus:ring-2 focus:ring-indigo-500 focus:outline-none',
                 'placeholder': 'Image URL (optional)'
             }),
