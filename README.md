@@ -2,7 +2,7 @@
 
 A complete Django project demonstrating multiple core concepts through practical lab experiments.
 
-🔗 **Live Demo:** https://your-render-link.onrender.com
+🔗 **Live Demo:** [https://your-render-link.onrender.com](https://djangopracticals.onrender.com/)<br>
 📂 **GitHub Repo:** https://github.com/04Priyanshuuuu/DjangoPracticals
 
 ---
@@ -106,17 +106,25 @@ DjangoPracticals/
 
 ## 🔐 Features
 
-✔ User Authentication (Login/Signup/Logout)
-✔ Blog System (Posts, Categories, Comments)
-✔ Django Admin Customization
-✔ Form Validation
-✔ Static & Media File Handling
+✔ User Authentication (Login/Signup/Logout)<br>
+✔ Blog System (Posts, Categories, Comments))<br>
+✔ Django Admin Customization)<br>
+✔ Form Validation)<br>
+✔ Static & Media File Handling)<br>
 
 ---
 
 ## 📸 Screenshots
 
-(Add your screenshots here after deployment)
+<img width="1892" height="861" alt="image" src="https://github.com/user-attachments/assets/ae7f5882-ceb6-4d49-aa8b-3536423e7165" />
+<img width="1885" height="851" alt="image" src="https://github.com/user-attachments/assets/5a06edf9-68fc-405c-aa60-265e0e49571c" />
+<img width="591" height="869" alt="image" src="https://github.com/user-attachments/assets/dd37e88a-985e-407d-8724-c39e6b4d6751" />
+<img width="1919" height="869" alt="image" src="https://github.com/user-attachments/assets/f6bc119e-e70a-4f30-9808-b1acd28f22c0" />
+<img width="1916" height="854" alt="image" src="https://github.com/user-attachments/assets/36332014-cdf9-4260-99c0-d28a569f80b8" />
+<img width="1919" height="857" alt="image" src="https://github.com/user-attachments/assets/5baf043e-b90f-4875-b490-f01bb8968897" />
+<img width="1919" height="856" alt="image" src="https://github.com/user-attachments/assets/93d77dea-953c-47ab-8a13-8588bc5ba8a5" />
+<img width="1917" height="842" alt="image" src="https://github.com/user-attachments/assets/3aba72b4-4d78-4c67-8613-68b615aa8045" />
+
 
 ---
 
