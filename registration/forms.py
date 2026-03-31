@@ -1,10 +1,10 @@
 from django import forms
-from .models import Student
+from .models import RegistrationStudent
 
 
 class StudentRegistrationForm(forms.ModelForm):
     class Meta:
-        model = Student
+        model = RegistrationStudent
         fields = ['name', 'email', 'age', 'course']
         widgets = {
     'name': forms.TextInput(attrs={'class': 'w-full border p-2 rounded-lg'}),
