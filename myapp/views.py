@@ -64,7 +64,6 @@ def api_list(request):
     return render(request, 'api/api_list.html')
 
 
-
 def create_admin(request):
     username = 'zero'
 
