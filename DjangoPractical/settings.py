@@ -99,6 +99,9 @@ STATIC_URL = '/static/'
 STATICFILES_DIRS = [BASE_DIR / 'static']
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedStaticFilesStorage'
+
+
 MEDIA_URL = '/media/'
 
 
@@ -107,7 +110,6 @@ LOGIN_REDIRECT_URL = 'myapp:home'
 LOGOUT_REDIRECT_URL = 'myapp:home'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
-STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
 
@@ -122,3 +124,7 @@ REST_FRAMEWORK = {
         'rest_framework.permissions.AllowAny',
     ],
 }
+
+CSRF_TRUSTED_ORIGINS = [
+    "https://djangopracticals.onrender.com",
+]
