@@ -1,5 +1,5 @@
 from django import forms
-from .models import Comment, Post , Category
+from .models import Comment, Post, Category
 
 
 class CommentForm(forms.ModelForm):
@@ -15,13 +15,19 @@ class CommentForm(forms.ModelForm):
 
 
 class PostForm(forms.ModelForm):
+
     category = forms.ModelChoiceField(
-        queryset=Category.objects.all(),
-        empty_label=None, 
+        queryset=Category.objects.none(),
+        empty_label=None,
         widget=forms.Select(attrs={
             'class': 'w-full rounded-lg border border-slate-300 px-3 py-2 text-sm bg-white focus:ring-2 focus:ring-indigo-500 focus:outline-none'
         })
     )
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields['category'].queryset = Category.objects.all()
+
     class Meta:
         model = Post
         fields = ['title', 'content', 'category', 'image_url']
