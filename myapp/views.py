@@ -2,11 +2,8 @@ from django.shortcuts import render, redirect
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.forms import UserCreationForm
-from .models import Student
 from django.contrib.auth import logout
-from django.http import HttpResponse
-from django.contrib.auth.models import User
-
+from .models import Student
 
 
 def home(request):
@@ -52,24 +49,11 @@ def signup(request):
     return render(request, 'auth/signup.html', {'form': form})
 
 
-
-
 def logout_view(request):
     if request.method == "POST":
         logout(request)
         return redirect('login')
-    
+
 
 def api_list(request):
     return render(request, 'api/api_list.html')
-
-
-def create_admin(request):
-    username = 'zero'
-
-    if not User.objects.filter(username=username).exists():
-        User.objects.create_superuser(username, '04myexperimentswithai@gmail.com', 'zero')
-        return HttpResponse("Superuser created!")
-
-    return HttpResponse("Already exists")
-
