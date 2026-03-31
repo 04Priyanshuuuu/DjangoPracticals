@@ -60,6 +60,11 @@ def logout_view(request):
         return redirect('login')
     
 
+def api_list(request):
+    return render(request, 'api/api_list.html')
+
+
+
 def create_admin(request):
     username = 'zero'
 
@@ -68,3 +73,4 @@ def create_admin(request):
         return HttpResponse("Superuser created!")
 
     return HttpResponse("Already exists")
+

@@ -2,6 +2,10 @@ from pathlib import Path
 import os
 import dj_database_url
 import cloudinary
+from dotenv import load_dotenv
+import os
+
+load_dotenv()
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -25,6 +29,8 @@ INSTALLED_APPS = [
     'blog',
     'cloudinary',
     'cloudinary_storage',
+    'rest_framework',
+    'api',
 ]
 
 MIDDLEWARE = [
@@ -60,10 +66,9 @@ WSGI_APPLICATION = 'DjangoPractical.wsgi.application'
 
 # Database
 
-
 DATABASES = {
     'default': dj_database_url.config(
-        default=os.environ.get('DATABASE_URL')
+        default=os.getenv('DATABASE_URL')
     )
 }
 
@@ -111,3 +116,9 @@ cloudinary.config(
     api_key = os.environ.get("CLOUDINARY_API_KEY"),
     api_secret = os.environ.get("CLOUDINARY_API_SECRET"),
 )
+
+REST_FRAMEWORK = {
+    'DEFAULT_PERMISSION_CLASSES': [
+        'rest_framework.permissions.AllowAny',
+    ],
+}
