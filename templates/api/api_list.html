@@ -11,7 +11,6 @@
 
     <div class="w-full max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-4">
         
-    <!-- 🔹 COLUMN 1: SIDEBAR -->
     <div class="bg-white p-5 rounded-2xl shadow h-full">
 
         <h3 class="text-lg font-semibold mb-4">APIs</h3>
@@ -37,19 +36,16 @@
 
     </div>
 
-    <!-- 🔹 COLUMN 2: INPUTS -->
     <div class="bg-white p-6 rounded-2xl shadow h-full flex flex-col">
 
         <h2 class="text-lg font-bold mb-4">🚀 API Tester</h2>
 
-        <!-- METHOD -->
         <select id="method"
             class="border p-2 rounded mb-3">
             <option value="GET">GET</option>
             <option value="POST">POST</option>
         </select>
 
-        <!-- TOGGLE -->
         <div class="flex gap-3 mb-3 text-sm">
             <button onclick="setMode('form')" id="formBtn"
                 class="px-3 py-1 bg-indigo-600 text-white rounded">
@@ -61,22 +57,11 @@
             </button>
         </div>
 
-        <!-- FORM INPUT -->
-        <div id="formInputs" class="space-y-2 mb-3">
-            <input id="title" placeholder="Title"
-                class="w-full border p-2 rounded">
-            <input id="author" placeholder="Author"
-                class="w-full border p-2 rounded">
-            <input id="price" placeholder="Price"
-                class="w-full border p-2 rounded">
-        </div>
+        <div id="formInputs" class="space-y-2 mb-3"></div>
 
-        <!-- JSON INPUT -->
         <textarea id="jsonInput" rows="4"
-            class="w-full border p-2 rounded mb-3 hidden font-mono text-sm"
-            placeholder='{"title":"Book","author":"Name","price":100}'></textarea>
+            class="w-full border p-2 rounded mb-3 hidden font-mono text-sm"></textarea>
 
-        <!-- BUTTON -->
         <button onclick="runAPI()"
             class="bg-indigo-600 text-white py-2 rounded mb-3 hover:bg-indigo-500">
             ▶ Run
@@ -88,7 +73,6 @@
 
     </div>
 
-    <!-- 🔹 COLUMN 3: OUTPUT -->
     <div class="bg-white p-4 rounded-2xl shadow h-full flex flex-col">
 
         <h3 class="text-sm font-semibold mb-2">📊 Response</h3>
@@ -105,95 +89,100 @@
 let currentAPI = "/api/books/";
 let mode = "form";
 
-function selectAPI(api) {
-    currentAPI = api;
-    document.getElementById("selectedApi").innerText = api;
+const apiFields = {
+    "/api/books/": [
+        {id:"title",placeholder:"Title"},
+        {id:"author",placeholder:"Author"},
+        {id:"price",placeholder:"Price"}
+    ],
+    "/api/movies/": [
+        {id:"name",placeholder:"Name"},
+        {id:"rating",placeholder:"Rating"},
+        {id:"review",placeholder:"Review"}
+    ]
+};
+
+function renderFields(){
+    const container=document.getElementById("formInputs");
+    container.innerHTML="";
+    apiFields[currentAPI].forEach(f=>{
+        const input=document.createElement("input");
+        input.id=f.id;
+        input.placeholder=f.placeholder;
+        input.className="w-full border p-2 rounded";
+        container.appendChild(input);
+    });
 }
 
-function openDRF() {
-    window.open(currentAPI, "_blank");
+function selectAPI(api){
+    currentAPI=api;
+    document.getElementById("selectedApi").innerText=api;
+    renderFields();
 }
 
-function setMode(m) {
-    mode = m;
-
-    document.getElementById("formInputs").style.display =
-        m === "form" ? "block" : "none";
-
-    document.getElementById("jsonInput").style.display =
-        m === "json" ? "block" : "none";
-
-    document.getElementById("formBtn").classList.toggle("bg-indigo-600", m==="form");
-    document.getElementById("jsonBtn").classList.toggle("bg-indigo-600", m==="json");
+function openDRF(){
+    window.open(currentAPI,"_blank");
 }
 
-function syntaxHighlight(json) {
-    json = JSON.stringify(json, null, 2);
-    json = json.replace(/(&|<|>)/g, function (match) {
+function setMode(m){
+    mode=m;
+    document.getElementById("formInputs").style.display=m==="form"?"block":"none";
+    document.getElementById("jsonInput").style.display=m==="json"?"block":"none";
+    document.getElementById("formBtn").classList.toggle("bg-indigo-600",m==="form");
+    document.getElementById("jsonBtn").classList.toggle("bg-indigo-600",m==="json");
+}
+
+function syntaxHighlight(json){
+    json=JSON.stringify(json,null,2);
+    json=json.replace(/(&|<|>)/g,function(match){
         return {'&':'&amp;','<':'&lt;','>':'&gt;'}[match];
     });
-
     return json.replace(
         /("(\\u[a-zA-Z0-9]{4}|\\[^u]|[^\\"])*"(\s*:)?|\b(true|false|null)\b|\b\d+\b)/g,
-        function (match) {
-            let color = 'text-blue-600';
-
-            if (/^"/.test(match)) {
-                if (/:$/.test(match)) {
-                    color = 'text-purple-600'; // keys
-                } else {
-                    color = 'text-green-600'; // string values
-                }
-            } else if (/true|false/.test(match)) {
-                color = 'text-indigo-600';
-            } else if (/null/.test(match)) {
-                color = 'text-gray-500';
-            } else {
-                color = 'text-red-600'; // numbers
-            }
-
+        function(match){
+            let color='text-blue-600';
+            if(/^"/.test(match)){
+                if(/:$/.test(match)){color='text-purple-600'}
+                else{color='text-green-600'}
+            }else if(/true|false/.test(match)){color='text-indigo-600'}
+            else if(/null/.test(match)){color='text-gray-500'}
+            else{color='text-red-600'}
             return `<span class="${color}">${match}</span>`;
         }
     );
 }
 
-async function runAPI() {
-    const method = document.getElementById("method").value;
+async function runAPI(){
+    const method=document.getElementById("method").value;
+    let bodyData={};
 
-    let bodyData = {};
-
-    if (mode === "form") {
-        bodyData = {
-            title: document.getElementById("title").value,
-            author: document.getElementById("author").value,
-            price: document.getElementById("price").value
-        };
-    } else {
-        bodyData = JSON.parse(document.getElementById("jsonInput").value || "{}");
+    if(mode==="form"){
+        apiFields[currentAPI].forEach(f=>{
+            bodyData[f.id]=document.getElementById(f.id)?.value;
+        });
+    }else{
+        bodyData=JSON.parse(document.getElementById("jsonInput").value||"{}");
     }
 
-    let options = {
-        method: method,
-        headers: {
-            "Content-Type": "application/json"
-        }
+    let options={
+        method:method,
+        headers:{"Content-Type":"application/json"}
     };
 
-    if (method !== "GET") {
-        options.body = JSON.stringify(bodyData);
+    if(method!=="GET"){
+        options.body=JSON.stringify(bodyData);
     }
 
-    try {
-        const res = await fetch(currentAPI, options);
-        const data = await res.json();
-
-        document.getElementById("output").innerHTML =
-            syntaxHighlight(data);
-
-    } catch (err) {
-        document.getElementById("output").innerText = err;
+    try{
+        const res=await fetch(currentAPI,options);
+        const data=await res.json();
+        document.getElementById("output").innerHTML=syntaxHighlight(data);
+    }catch(err){
+        document.getElementById("output").innerText=err;
     }
 }
+
+renderFields();
 </script>
 
 {% endblock %}
