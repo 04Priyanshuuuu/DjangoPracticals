@@ -20,9 +20,8 @@ def contact(request):
 
 @login_required(login_url='login')
 def profile(request):
-    # One record for the demo, enhanced to show the logged-in user
     student, created = MyAppStudent.objects.update_or_create(
-        roll_no=request.user.id,
+        roll_no=str(request.user.id),
         defaults={
             'name': request.user.get_full_name() or request.user.username,
             'email': request.user.email,
