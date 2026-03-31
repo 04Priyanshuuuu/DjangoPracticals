@@ -3,7 +3,7 @@ from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth import logout
-from .models import Student
+from .models import MyAppStudent
 
 
 def home(request):
@@ -21,7 +21,7 @@ def contact(request):
 @login_required(login_url='login')
 def profile(request):
     # One record for the demo, enhanced to show the logged-in user
-    student, created = Student.objects.update_or_create(
+    student, created = MyAppStudent.objects.update_or_create(
         roll_no=request.user.id,
         defaults={
             'name': request.user.get_full_name() or request.user.username,

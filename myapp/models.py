@@ -2,7 +2,7 @@ from django.db import models
 from datetime import date
 
 
-class Student(models.Model):
+class MyAppStudent(models.Model):
     name = models.CharField(max_length=100)
     roll_no = models.CharField(max_length=20)
     email = models.EmailField()

@@ -1,17 +1,17 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib import messages
 from .forms import StudentRegistrationForm
-from .models import Student
+from .models import RegistrationStudent
 
 
 def register(request):
-    students = Student.objects.all().order_by('-created_at')
+    students = RegistrationStudent.objects.all().order_by('-created_at')
 
     selected_student = None
     student_id = request.GET.get('student')
 
     if student_id:
-        selected_student = get_object_or_404(Student, id=student_id)
+        selected_student = get_object_or_404(RegistrationStudent, id=student_id)
 
     if request.method == 'POST':
         form = StudentRegistrationForm(request.POST)
@@ -29,7 +29,7 @@ def register(request):
     })
 
 def student_detail(request, pk):
-    student = get_object_or_404(Student, pk=pk)
+    student = get_object_or_404(RegistrationStudent, pk=pk)
 
     return render(request, 'registration/student_detail.html', {
         'student': student
